@@ -25,11 +25,11 @@
                         <div class = "row">
                             <div class = "col-md-6 mb-3">
                                 <label class = "fw-bold ">Nume</label>
-                                <input type = "text" name = "nume" placeholder = "Nume Prenume" class = "form-control">
+                                <input type = "text" name = "nume" value = "<?= $_SESSION['auth_user']['nume'] ?>" class = "form-control">
                             </div>
                             <div class = "col-md-6 mb-3">
                                 <label class = "fw-bold ">E-mail</label>
-                                <input type = "text" name = "email" placeholder = "cineva@exemplu.com" class = "form-control">
+                                <input type = "text" name = "email" value = "<?= $_SESSION['auth_user']['email'] ?>" class = "form-control">
                             </div>
                             <div class = "col-md-6 mb-3">
                                 <label class = "fw-bold ">Telefon</label>
@@ -94,7 +94,7 @@
                         <h5>Total: <span class = "float-end fw-bold"><?= $suma + 5 ?> RON</span></h5>
                         <div class = "">
                             <input type = "hidden" name = "metoda_plata" value = "COD">
-                            <button type = "submit" name = "order-btn" class = "w-100" style = "font-size: 14px;font-weight: 600;padding: 15px 30px;color: #ffffff;background-color: #088178;border-radius: 4px;cursor: pointer;border: none;outline: none;transition: 0.2s;">Plaseaza comanda</button>
+                            <a href = "final.php"><button type = "submit" name = "order-btn" class = "w-100" style = "font-size: 14px;font-weight: 600;padding: 15px 30px;color: #ffffff;background-color: #088178;border-radius: 4px;cursor: pointer;border: none;outline: none;transition: 0.2s;">Plaseaza comanda</button></a>
                         </div>
                     </div>
                 </div>
