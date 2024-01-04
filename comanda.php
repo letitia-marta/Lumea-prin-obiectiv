@@ -24,10 +24,8 @@
             $user_id = $_SESSION['auth_user']['user_id'];
 
             $query = "SELECT c.id AS cid, c.prod_id, c.prod_qty, p.price
-                    FROM cos AS c
-                    JOIN products AS p ON c.prod_id = p.id
-                    WHERE c.user_id = '$user_id'
-                    ORDER BY c.id DESC";
+                    FROM cos AS c JOIN products AS p ON c.prod_id = p.id
+                    WHERE c.user_id = '$user_id' ORDER BY c.id DESC";
             $query_run = mysqli_query($con, $query);
 
             $total = 0;
@@ -38,7 +36,8 @@
             $total += 5;
             
             $metoda_plata = mysqli_real_escape_string($con, $_POST['metoda_plata']);
-            $id_plata = mysqli_real_escape_string($con, $_POST['id_plata']);
+            //$id_plata = mysqli_real_escape_string($con, $_POST['id_plata']);
+            $id_plata = "";
 
             $insert_query = "INSERT INTO comenzi 
             (nr_expeditie, user_id, nume, email, telefon, adresa, cod_postal, total, metoda_plata, id_plata)
@@ -59,7 +58,7 @@
                     $insert_items_query_run = mysqli_query($con, $insert_items_query);
                 }
                 $_SESSION['message'] = "Comanda a fost plasata";
-                header('Location: home.php');
+                header('Location: final.php');
                 die();
             }
         }
