@@ -1,6 +1,7 @@
 <?php
     include("header.php");
     include('feedback.php');
+    include('myFunctions.php');
 ?>
 
 <section id="contact-details" class="section-p1">
@@ -27,19 +28,74 @@
 </section>
 
 <section id="form-details">
-    <form action="feedback.php" method="POST">
-        <span>LASA UN MESAJ</span>
-        <h2>Parerea ta este importanta</h2>
-        <input type="text" name="nume" placeholder="Nume">
-        <input type="text" name="email" placeholder="e-mail">
-        <input type="text" name="subiect" placeholder="Subiect">
-        <textarea name="mesaj" id="" cols="30" rows="10" placeholder="Mesaj"></textarea>
-        <button class="normal" name="feedback-btn">Trimite</button>
-    </form>
-    <div class="people">
-        <div>
-            <img src="photos/utilitare/profile.jpg" alt="">
-            <p><span>Letitia Iliescu</span> Fotograf <br> Telefon: +40 770 915 325 <br> Email: letitia.iliescu@lumeaprinobiectiv.ro</p>
+    <div class = "row">
+        <div class = "col-md-7">
+            <form action="feedback.php" method="POST">
+                <span>LASA UN MESAJ</span>
+                <h2>Parerea ta este importanta</h2>
+                <input type="text" name="nume" value = "<?= $_SESSION['auth_user']['nume'] ?>">
+                <input type="text" name="email" value = "<?= $_SESSION['auth_user']['email'] ?>">
+                <input type="text" name="subiect" placeholder="Subiect">
+                <textarea name="mesaj" id="" cols="30" rows="10" placeholder="Mesaj"></textarea>
+                <button class="normal" name="feedback-btn">Trimite</button>
+            </form>
+        </div>
+        <div class = "col-md-5">
+            <div class="people">
+                <div>
+                    <img src="photos/utilitare/profile.jpg" alt="">
+                    <p><span>Letitia Iliescu</span> Fotograf <br> Telefon: +40 770 915 325 <br> Email: letitia.iliescu@lumeaprinobiectiv.ro</p>
+                </div>
+                <hr>
+                <h4>Comentarii</h4>
+                <div>
+                    <ul>
+                        <?php
+                            $comentarii = getFeedback();
+                            foreach ($comentarii as $item)
+                            {
+                                ?>
+                                <li>
+                                    <?php
+                                        if ($item['role_as'] == 0)
+                                        {
+                                            if ($item['email'] != $_SESSION['auth_user']['email'])
+                                            {
+                                                ?>
+                                                <p><span><?= $item['nume'] ?></span> <strong><?= $item['subiect'] ?></strong> <br> <?= $item['mesaj'] ?> </p>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                <p><span>Eu</span> <strong><?= $item['subiect'] ?></strong> <br> <?= $item['mesaj'] ?> </p>
+                                                <?php
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if ($item['email'] != $_SESSION['auth_user']['email'])
+                                            {
+                                                ?>
+                                                <p><span><?= $item['nume'] ?> (admin)</span> <strong><?= $item['subiect'] ?></strong> <br> <?= $item['mesaj'] ?> </p>
+                                                <?php
+                                            }
+                                            else
+                                            {
+                                                ?>
+                                                <p><span>Eu</span> <strong><?= $item['subiect'] ?></strong> <br> <?= $item['mesaj'] ?> </p>
+                                                <?php
+                                            }
+                                        }
+                                        ?>
+                                    <br>
+                                </li>
+                                <?php
+                            }
+                        ?>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 </section>
