@@ -10,37 +10,65 @@
         $parola = mysqli_real_escape_string($con,$_POST['parola']);
         $confirmare = mysqli_real_escape_string($con,$_POST['confirmare']);
 
-        $check_email_query = "SELECT email FROM utilizatori WHERE email='$email' ";
-        $check_email_query_run = mysqli_query($con, $check_email_query);
-        if (mysqli_num_rows($check_email_query_run) > 0)
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL))
         {
-            $_SESSION['message'] = "Esti deja inregistrat";
-            header('Location: login.php');
+            $_SESSION['message'] = "Introdu o adresa de email valida";
+            header('Location: register.php');
         }
         else
         {
-            if ($parola == $confirmare)
+            $check_email_query = "SELECT email FROM utilizatori WHERE email='$email' ";
+            $check_email_query_run = mysqli_query($con, $check_email_query);
+            if (mysqli_num_rows($check_email_query_run) > 0)
             {
-                $insert_query = "INSERT INTO utilizatori (nume,email,parola) VALUES ('$nume','$email','$parola')";
-                $insert_query_run = mysqli_query($con, $insert_query);
-
-                if ($insert_query_run)
-                {
-                    $_SESSION['message'] = "Inregistrat cu succes";
-                    header('Location: login.php');
-                    exit;
-                }
-                else
-                {
-                    $_SESSION['message'] = "Inregistrarea a esuat";
-                    header('Location: register.php');
-                }
+                $_SESSION['message'] = "Esti deja inregistrat";
+                header('Location: login.php');
             }
             else
             {
-                $_SESSION['message'] = "Parolele nu se potrivesc";
-                header('Location: register.php');
-            }
+                if ($parola == $confirmare)
+                {
+                    $insert_query = "INSERT INTO utilizatori (nume, email, parola) VALUES ('$nume', '$email', '$parola')";
+                    $insert_query_run = mysqli_query($con, $insert_query);
+
+                    if ($insert_query_run)
+                    {
+                        /*$to = $email;
+                        $subject = 'Verificare adresa e-mail';
+                        $message = "Iti multumim ca te-ai inregistrat!\n\n"
+                            . "Contul tau a fost creat, te vei putea conecta dupa ce validezi adresa ta de e-mail.\n\n"
+                            . "------------------------\n"
+                            . "Utilizator: $nume\n"
+                            . "------------------------\n\n"
+                            . "Acceseaza link-ul de mai jos pentru a valida adresa de e-mail:\n"
+                            . "http://www.lumeaprinobiectiv.com/verify.php?email=$email";
+
+                        $headers = 'From: letitia.iliescu@gmail.com' . "\r\n";
+                        if (mail($to, $subject, $message, $headers))
+                        {
+                            $_SESSION['message'] = "A fost trimis mail-ul de validare";
+                            header('Location: register.php');
+                        }
+                        else
+                        {
+                            $_SESSION['message'] = "A intervenit o eroare. Detalii: " . error_get_last()['message'];
+                            header('Location: register.php');
+                        }*/
+                        $_SESSION['message'] = "Te-ai inregistrat cu succes";
+                        header('Location: login.php');
+                    }
+                    else
+                    {
+                        $_SESSION['message'] = "Inregistrarea a esuat";
+                        header('Location: register.php');
+                    }
+                }
+                else
+                {
+                    $_SESSION['message'] = "Parolele nu se potrivesc";
+                    header('Location: register.php');
+                }
+            } 
         }
     }
 
