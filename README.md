@@ -4,8 +4,6 @@
 
 Designed with a visual-first experience, it serves both as a portfolio and an e-commerce platform for photography lovers and clients alike.
 
----
-
 ## 🌟 Features
 
 ### 🖼️ Photography Showcase
