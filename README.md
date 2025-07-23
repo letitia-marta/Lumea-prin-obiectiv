@@ -9,7 +9,7 @@ Designed with a visual-first experience, it serves both as a portfolio and an e-
 ## 🌟 Features
 
 ### 🖼️ Photography Showcase
-- Elegant and responsive photo gallery\
+- Elegant and responsive photo gallery
 - High-resolution image display
 
 ### 🛒 Online Store
