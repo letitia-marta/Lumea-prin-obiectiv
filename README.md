@@ -18,8 +18,6 @@ Designed with a visual-first experience, it serves both as a portfolio and an e-
 ### 🧾 Other features
 - Contact form for commissions or inquiries
 
----
-
 ## 🛠️ Tech Stack
 
 - **Frontend**: HTML, CSS, JavaScript
